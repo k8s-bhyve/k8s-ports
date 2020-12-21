@@ -8,6 +8,9 @@ MAINTAINER=	olevole@olevole.ru
 COMMENT=	CBSD message queue router
 
 LICENSE=	BSD
+
+RUN_DEPENDS=	beanstalkd:net/beanstalkd
+
 USES=		go
 
 PLIST_FILES=	bin/cbsd-mq-router

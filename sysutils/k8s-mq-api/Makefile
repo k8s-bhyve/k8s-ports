@@ -8,6 +8,9 @@ MAINTAINER=	olevole@olevole.ru
 COMMENT=	Simple demo/sample for CBSD K8S API
 
 LICENSE=	BSD
+
+RUN_DEPENDS=	beanstalkd:net/beanstalkd
+
 USES=		go
 
 PLIST_FILES=	bin/k8s-mq-api
