@@ -1,0 +1,11 @@
+TIMESTAMP = 1608367933
+SHA256 (cbsd-cbsd-mq-router-0.1-1605df2_GH0.tar.gz) = 2671686dc5764b27d6d8ccb9a4375026fd1e3cba7c53d1a5c3947da101d89ec8
+SIZE (cbsd-cbsd-mq-router-0.1-1605df2_GH0.tar.gz) = 6970
+SHA256 (beanstalkd-go-beanstalk-master_GH0.tar.gz) = 10bab4a14e88db60ebb5cdd3fd19a5ec07e5bdf4d9cd7fce7e4c8023d57c80dc
+SIZE (beanstalkd-go-beanstalk-master_GH0.tar.gz) = 8057
+SHA256 (golang-crypto-8b5274cf687f_GH0.tar.gz) = 843a7219a66cdd64c7d2433b2e1624c8f4090382d4e88f8bf97cd31504af4abd
+SIZE (golang-crypto-8b5274cf687f_GH0.tar.gz) = 1721870
+SHA256 (golang-term-2321bbc49cbf_GH0.tar.gz) = 72896f6aa3deb053da5b597ab072ba5c3540b29d0fb56f350397b7f94c010e21
+SIZE (golang-term-2321bbc49cbf_GH0.tar.gz) = 15281
+SHA256 (golang-sys-7d0127a74742_GH0.tar.gz) = 2f432065172934946d8f0f2f32235b9f97135c344a835b64e0d53836d41d9bcd
+SIZE (golang-sys-7d0127a74742_GH0.tar.gz) = 1090444

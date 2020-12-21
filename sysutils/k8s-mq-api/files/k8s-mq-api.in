@@ -1,0 +1,77 @@
+#!/bin/sh
+
+# PROVIDE: k8s_mq_api
+# REQUIRE: NETWORK
+# BEFORE:  DAEMON
+
+. /etc/rc.subr
+
+name="k8s_mq_api"
+desc="CBSD K8S API Module"
+rcvar="k8s_mq_api_enable"
+pidfile="/var/run/${name}.pid"
+daemon_pidfile="/var/run/${name}-daemon.pid"
+logdir="/var/log/${name}"
+logfile="${logdir}/k8s_mq_api.log"
+extra_commands="reload"
+command="%%PREFIX%%/bin/k8s-mq-api"
+k8s_mq_api_user=${k8s_mq_api_user-"cbsd"}
+k8s_mq_api_config=${k8s_mq_api_config-"%%PREFIX%%/etc/cbsd-mq-router.json"}
+required_files="${k8s_mq_api_config}"
+
+k8s_mq_api_args=${k8s_mq_api_args-"-config ${k8s_mq_api_config}"}
+
+load_rc_config ${name}
+
+start_cmd="start"
+stop_cmd="stop"
+status_cmd="status"
+reload_cmd="reload"
+
+stop()
+{
+	if [ -f "${daemon_pidfile}" ]; then
+		pids=$( pgrep -F ${daemon_pidfile} 2>&1 )
+		_err=$?
+		[ ${_err} -eq  0 ] && kill -9 ${pids} && /bin/rm -f ${daemon_pidfile}
+	fi
+	if [ -f "${pidfile}" ]; then
+		pids=$( pgrep -F ${pidfile} 2>&1 )
+		_err=$?
+		[ ${_err} -eq  0 ] && kill -9 ${pids} && /bin/rm -f ${pidfile}
+	fi
+}
+
+start()
+{
+	[ ! -d ${logdir} ] && mkdir -p ${logdir}
+	touch ${logfile}
+	chown ${k8s_mq_api_user} ${logdir} ${logfile}
+	/usr/sbin/daemon -u ${k8s_mq_api_user} -f -R5 -p ${pidfile} -P ${daemon_pidfile} -o ${logfile} ${command} ${k8s_mq_api_args}
+}
+
+reload()
+{
+	stop
+	start
+}
+
+status()
+{
+	if [ -f "${pidfile}" ]; then
+		pids=$( pgrep -F ${pidfile} 2>&1 )
+		_err=$?
+		if [ ${_err} -eq  0 ]; then
+			echo "${name} is running as pid ${pids}"
+			exit 0
+		else
+			echo "wrong pid: ${pids}"
+			exit 1
+		fi
+	else
+		echo "no pidfile $pidfile"
+		exit 1
+	fi
+}
+
+run_rc_command "$1"
